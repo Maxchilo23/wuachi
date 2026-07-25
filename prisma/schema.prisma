@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Guild {
+  id            String   @id
+  volumeDefault Int      @default(100)
+  queueItems    QueueItem[]
+  playlists     Playlist[]
+}
+
+model QueueItem {
+  id          Int      @id @default(autoincrement())
+  guildId     String
+  guild       Guild    @relation(fields: [guildId], references: [id])
+  url         String
+  title       String
+  requestedBy String
+  position    Int
+  addedAt     DateTime @default(now())
+}
+
+model Playlist {
+  id        Int      @id @default(autoincrement())
+  guildId   String
+  guild     Guild    @relation(fields: [guildId], references: [id])
+  name      String
+  createdBy String
+  items     PlaylistItem[]
+}
+
+model PlaylistItem {
+  id         Int      @id @default(autoincrement())
+  playlistId Int
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
+  url        String
+  title      String
+  position   Int
+}
