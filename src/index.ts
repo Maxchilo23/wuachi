@@ -1,8 +1,7 @@
 import 'dotenv/config';
 import ffmpegPath from 'ffmpeg-static';
 process.env.FFMPEG_PATH = ffmpegPath as string;
-console.log(generateDependencyReport());
-import { generateDependencyReport } from '@discordjs/voice';
+
 import { Client, GatewayIntentBits, Collection } from 'discord.js';
 import { readyHandler } from './events/ready';
 import { interactionCreateHandler } from './events/interactionCreate';
